@@ -12,6 +12,8 @@ import InfoBox from './InfoBox'
 import Table from './Table'
 import Map from './Map'
 
+import { sortData } from './util'
+
 function App() {
   const [countries, setCountries] = useState([])
   const [country, setCountry] = useState('worldwide')
@@ -47,13 +49,16 @@ function App() {
         }
       })
       // console.log(modifiedData)
-      setTableData(data)
+      const sortedData = sortData(data)
+      
+      setTableData(sortedData)
       setCountries(modifiedData)
     }
 
     fetchData()
   }, [])
-
+  
+  console.log(tableData)
   // Fetch daily data and yesterdays deaths for specific country
   const dailyData = async (countryCode) => {
     const countryDailyData = `https://disease.sh/v3/covid-19/countries/${countryCode}?yesterday=true&strict=true`
